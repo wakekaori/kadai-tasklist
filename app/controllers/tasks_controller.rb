@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   
   def index
     if logged_in?
-      @tasks = current_user.task.all
+      @tasks = current_user.tasks.all
     end
   end
   
@@ -14,12 +14,12 @@ class TasksController < ApplicationController
   
   def new
     # @task = Task.new
-    @task = current_user.task.build
+    @task = current_user.tasks.build
   end
   
   def create
     # @task = Task.new(task_params)
-    @task = current_user.task.build(task_params)
+    @task = current_user.tasks.build(task_params)
     
     if @task.save
       flash[:success] = "タスクが正常に登録されました"
@@ -61,7 +61,7 @@ def task_params
 end
 
 def correct_user
-  @task = current_user.task.find_by(id: params[:id])
+  @task = current_user.tasks.find_by(id: params[:id])
   unless @task
     redirect_to root_url
   end
